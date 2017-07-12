@@ -3,7 +3,7 @@ import re
 
 #settings
 SENTENCES_IN_RESULT = 7
-LENGTH_ADJUSTMENT_FACTOR = 1 #between 1 and 10. the lower the number, the more shorter sentences are favored
+LENGTH_ADJUSTMENT_FACTOR = 3 #between 1 and 10. the lower the number, the more shorter sentences are favored
 inputFile = "princetonParsed.txt"
 freqFile = "wordFreq.txt"
 
@@ -86,3 +86,8 @@ for sentence in re.split("\.|\?|!", inputString):
             sentenceTotal = sentenceTotal - (wordCount / LENGTH_ADJUSTMENT_FACTOR)
         if (sentenceTotal >= cutoff):
             print ("sentence: " + sentence + ".")
+
+#show summarized status
+numSentences = float(len(re.split("\.|\?|!", inputString)))
+print("")
+print ("showing " + str(SENTENCES_IN_RESULT) + " out of " + str(numSentences) + " sentences" + " (" + str(SENTENCES_IN_RESULT / numSentences * 100) + "%)")
