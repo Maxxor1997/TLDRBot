@@ -3,8 +3,8 @@ import sys
 
 import re
 
-inputFile = 'eden.txt'
-outputFile = 'edenParsed.txt'
+inputFile = 'trump.txt'
+outputFile = 'trumpParsed.txt'
 
 input = open(inputFile, "r")
 output = open(outputFile, "w")
@@ -23,7 +23,8 @@ inputString = inputString.replace("Dr.", "Dr")
 inputString = inputString.replace("Jr.", "Jr")
 inputString = inputString.replace("p.m.", "pm")
 inputString = inputString.replace("a.m.", "am")
-inputString = re.sub("(?<=[A-Z])\.", '', inputString)
+inputString = re.sub("(?<=[A-Z])\.^ [A-Z]", '', inputString)
+inputString = re.sub(r"(\d)\.(\d)", r"\1,\2", inputString)
 
 #remove empty spaces
 output.write(' '.join(inputString.split()))
