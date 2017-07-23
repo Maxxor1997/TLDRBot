@@ -1,4 +1,4 @@
-Install NLTK Data here: http://www.nltk.org/data.html
+Install NLTK Data here: http://www.nltk.org/data.html   
 Python version must be 2.7+
 
 To run from main, set the following variables:  
