@@ -1,12 +1,15 @@
 import operator
 import re
+import nltk.data
+import io
+
 
 #settings
 
-SENTENCES_IN_RESULT = 5
+SENTENCES_IN_RESULT =7
 #between 1 and 10. the lower the number, the more shorter sentences are favored. 0 means lenghth not taken into account
-LENGTH_ADJUSTMENT_FACTOR = 7
-inputFile = "bnynewsParsed.txt"
+LENGTH_ADJUSTMENT_FACTOR = 5
+inputFile = "nytimesParsed.txt"
 freqFile = "wordFreq.txt"
 
 #preparation
@@ -33,19 +36,22 @@ for word in inputString.split():
             wordBag[word] = wordBag[word] + 1.00
 
 #for display
-#sortedWordBag = reversed(sorted(wordBag.items(), key=lambda item: item[1]))
-#for tuple in sortedWordBag:
-    #print tuple
+sortedWordBag = reversed(sorted(wordBag.items(), key=lambda item: item[1]))
+for tuple in sortedWordBag:
+    print tuple
+
+# segment into sentences
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+tokenizedData = tokenizer.tokenize(inputString)
 
 sentenceWeightBag = {}
 #add values to sentence weight bag
-for sentence in re.split("\.|\?|!", inputString):
+for sentence in tokenizedData:
     if len(sentence) > 0.00:
         sentenceTotal = 0.00
         wordCount = 0.00
         for word in sentence.split():
             word = str.lower(word)
-            #print wordCount
             wordCount = wordCount + 1
             word = re.sub("[^a-zA-Z]", "", word)
             if word in wordBag:
@@ -62,37 +68,19 @@ for sentence in re.split("\.|\?|!", inputString):
 sortedSentenceWeightBag = sorted(sentenceWeightBag.items(), key=operator.itemgetter(1))
 cutoff = sortedSentenceWeightBag[-SENTENCES_IN_RESULT][1]
 
-#print out sentences in order
-print "Summarized Article: "
-print ""
-for sentence in re.split("\.|\?|!", inputString):
-    if len(sentence) > 0.00:
-        sentenceTotal = 0.00
-        wordCount = 0.00
-        for word in sentence.split():
-            word = str.lower(word)
-            wordCount = wordCount + 1
-            word = re.sub("[^a-zA-Z]", "", word)
-            if word in wordBag:
-                if word in freqBag:
-                    sentenceTotal = sentenceTotal + (wordBag[word] / freqBag[word])
-                else:
-                    sentenceTotal = sentenceTotal + (wordBag[word] / 10.00)
-        if not wordCount is 0.00:
-            if LENGTH_ADJUSTMENT_FACTOR is not 0:
-                sentenceTotal = sentenceTotal - (wordCount / LENGTH_ADJUSTMENT_FACTOR)
-        if (sentenceTotal >= cutoff):
-            sentence = re.sub(r"\$(\d),(\d)", r"\1.\2", sentence)
-            sentence = re.sub(r"\$(\d)(\d),(\d)", r"\1\2.\3", sentence)
-            sentence = re.sub(r"\$(\d)(\d)(\d),(\d)", r"\1\2\3.\4", sentence)
-            sentence = sentence.replace("Mr", "Mr.")
-            sentence = sentence.replace("Mrs", "Mrs.")
-            sentence = sentence.replace("Ms", "Ms.")
-            sentence = sentence.replace("Dr", "Dr.")
-            sentence = sentence.replace("Jr", "Jr.")
-            print (sentence.lstrip() + ".")
+#show weight of each sentence
+for sentence in tokenizedData:
+    print sentence + "\n"
+    print sentenceWeightBag[sentence]
+    print "\n---------\n"
+
+#print summarized sentences
+for sentence in tokenizedData:
+    if sentenceWeightBag[sentence] >= cutoff:
+        print "\n----------\n"
+        print sentence
 
 #show summarized status
-numSentences = float(len(re.split("\.|\?|!", inputString)))
+numSentences = float(len(tokenizedData))
 print("")
 print ("showing " + str(SENTENCES_IN_RESULT) + " out of " + str(numSentences) + " sentences" + " (" + str(SENTENCES_IN_RESULT / numSentences * 100) + "%)")
