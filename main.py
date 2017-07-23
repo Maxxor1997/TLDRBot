@@ -9,12 +9,14 @@ LENGTH_ADJUSTMENT_FACTOR = 3
 
 OPTIMAL_SENTENCE_LENGTH = 20
 
-inputFile = "Text Files/nytimes2.txt"
+SENTENCE_LOCATION_FACTOR = 10
+
+inputFile = "Sample Text Files/nytimes2.txt"
 
 outputFile = "summarized.txt"
 
 freqFile = "wordFreq.txt"
 
 parse(inputFile, "temp.txt")
-analyze("temp.txt", outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH)
+analyze("temp.txt", outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH, SENTENCE_LOCATION_FACTOR)
 

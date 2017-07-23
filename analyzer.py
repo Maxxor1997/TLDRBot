@@ -4,7 +4,7 @@ import nltk.data
 import io
 
 
-def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH):
+def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH, SENTENCE_LOCATION_FACTOR):
     #preparation
     input = open(inputFile)
     output = open(outputFile, 'w+')
@@ -42,7 +42,9 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
     totalSentenceLength = 0
     sentenceWeightBag = {}
     #add values to sentence weight bag
+    nthSentence = 0
     for sentence in tokenizedData:
+        nthSentence = nthSentence + 1
         if len(sentence) > 0.00:
             sentenceTotal = 0.00
             wordCount = 0.00
@@ -58,6 +60,7 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
             if not wordCount is 0.00:
                 totalSentenceLength = totalSentenceLength + wordCount
                 sentenceTotal = sentenceTotal - (abs(wordCount - OPTIMAL_SENTENCE_LENGTH) / LENGTH_ADJUSTMENT_FACTOR)
+            sentenceTotal = sentenceTotal - (nthSentence / numSentences * SENTENCE_LOCATION_FACTOR)
             sentenceWeightBag[sentence] = sentenceTotal
 
     #find cutoff for sentence weight
