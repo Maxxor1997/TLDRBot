@@ -10,11 +10,12 @@ def parse(inputFile, outputFile):
 
     inputString = input.read()
 
-    #replace non-ascii characters common in news articles
+    #replace common non-ascii characters with ascii ones
     inputString = inputString.replace("”", "\"")
     inputString = inputString.replace("“", "\"")
     inputString = inputString.replace("‘", "\'")
     inputString = inputString.replace("’", "\'")
+    inputString = inputString.replace("é", "e")
     inputString = inputString.replace(". . . .", " ...")
 
 

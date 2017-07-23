@@ -3,17 +3,18 @@ from analyzer import analyze
 
 #settings
 
-SENTENCES_IN_RESULT =7
+PERCENT_SUMMARIZED = 10
 
-#between 1 and 10. the lower the number, the more shorter sentences are favored. 0 means length not taken into account
-LENGTH_ADJUSTMENT_FACTOR = 5
+LENGTH_ADJUSTMENT_FACTOR = 3
 
-inputFile = "nytimes.txt"
+OPTIMAL_SENTENCE_LENGTH = 20
+
+inputFile = "Text Files/nytimes2.txt"
 
 outputFile = "summarized.txt"
 
 freqFile = "wordFreq.txt"
 
 parse(inputFile, "temp.txt")
-analyze("temp.txt", outputFile, freqFile, SENTENCES_IN_RESULT, LENGTH_ADJUSTMENT_FACTOR)
+analyze("temp.txt", outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH)
 

@@ -4,7 +4,7 @@ import nltk.data
 import io
 
 
-def analyze(inputFile, outputFile, freqFile, SENTENCES_IN_RESULT, LENGTH_ADJUSTMENT_FACTOR):
+def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH):
     #preparation
     input = open(inputFile)
     output = open(outputFile, 'w+')
@@ -37,7 +37,9 @@ def analyze(inputFile, outputFile, freqFile, SENTENCES_IN_RESULT, LENGTH_ADJUSTM
     # segment into sentences
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     tokenizedData = tokenizer.tokenize(inputString)
+    numSentences = float(len(tokenizedData))
 
+    totalSentenceLength = 0
     sentenceWeightBag = {}
     #add values to sentence weight bag
     for sentence in tokenizedData:
@@ -54,13 +56,13 @@ def analyze(inputFile, outputFile, freqFile, SENTENCES_IN_RESULT, LENGTH_ADJUSTM
                     else:
                         sentenceTotal = sentenceTotal + (wordBag[word] / 10.00)
             if not wordCount is 0.00:
-                if LENGTH_ADJUSTMENT_FACTOR is not 0:
-                    sentenceTotal = sentenceTotal - (wordCount / LENGTH_ADJUSTMENT_FACTOR)
+                totalSentenceLength = totalSentenceLength + wordCount
+                sentenceTotal = sentenceTotal - (abs(wordCount - OPTIMAL_SENTENCE_LENGTH) / LENGTH_ADJUSTMENT_FACTOR)
             sentenceWeightBag[sentence] = sentenceTotal
 
     #find cutoff for sentence weight
     sortedSentenceWeightBag = sorted(sentenceWeightBag.items(), key=operator.itemgetter(1))
-    cutoff = sortedSentenceWeightBag[-SENTENCES_IN_RESULT][1]
+    cutoff = sortedSentenceWeightBag[-int(PERCENT_SUMMARIZED * numSentences / 100)][1]
 
     #show weight of each sentence
     for sentence in tokenizedData:
@@ -69,12 +71,15 @@ def analyze(inputFile, outputFile, freqFile, SENTENCES_IN_RESULT, LENGTH_ADJUSTM
         print "\n---------\n"
 
     #print summarized sentences
+    sentencesInOutput = 0
     for sentence in tokenizedData:
         if sentenceWeightBag[sentence] >= cutoff:
+            sentencesInOutput = sentencesInOutput + 1
             output.write(sentence)
             output.write("\n----------\n")
+
     #show summarized status
-    numSentences = float(len(tokenizedData))
     output.write("\n")
     output.write("\n")
-    output.write("showing " + str(SENTENCES_IN_RESULT) + " out of " + str(numSentences) + " sentences" + " (" + str(SENTENCES_IN_RESULT / numSentences * 100) + "%)")
+    output.write("showing " + str(int(sentencesInOutput)) + " out of " + str(numSentences) + " sentences" + " (" + str(sentencesInOutput/numSentences * 100.00) + "%)\n")
+    output.write("average sentence length is " + str(totalSentenceLength/numSentences) + " words")
