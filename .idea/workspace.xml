@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="315409f6-6190-4267-a5bd-234592250a3e" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/PPPD.txt" afterPath="$PROJECT_DIR$/Sample Text Files/PPPD.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/bnynews.txt" afterPath="$PROJECT_DIR$/Sample Text Files/bnynews.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/eden.txt" afterPath="$PROJECT_DIR$/Sample Text Files/eden.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/kesem.txt" afterPath="$PROJECT_DIR$/Sample Text Files/kesem.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/nytimes.txt" afterPath="$PROJECT_DIR$/Sample Text Files/nytimes.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/nytimes1.txt" afterPath="$PROJECT_DIR$/Sample Text Files/nytimes1.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/nytimes2.txt" afterPath="$PROJECT_DIR$/Sample Text Files/nytimes2.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/princeton.txt" afterPath="$PROJECT_DIR$/Sample Text Files/princeton.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/trump.txt" afterPath="$PROJECT_DIR$/Sample Text Files/trump.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Text Files/wealth_management_investment_update.txt" afterPath="$PROJECT_DIR$/Sample Text Files/wealth_management_investment_update.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzer.py" afterPath="$PROJECT_DIR$/analyzer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/summarized.txt" afterPath="$PROJECT_DIR$/summarized.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -113,8 +99,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="167" lean-forward="false" selection-start-line="9" selection-start-column="167" selection-end-line="9" selection-end-column="167" />
+            <state relative-caret-position="120">
+              <caret line="8" column="154" lean-forward="true" selection-start-line="8" selection-start-column="154" selection-end-line="8" selection-end-column="154" />
               <folding />
             </state>
           </provider>
@@ -756,8 +742,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="167" lean-forward="false" selection-start-line="9" selection-start-column="167" selection-end-line="9" selection-end-column="167" />
+        <state relative-caret-position="120">
+          <caret line="8" column="154" lean-forward="true" selection-start-line="8" selection-start-column="154" selection-end-line="8" selection-end-column="154" />
           <folding />
         </state>
       </provider>
