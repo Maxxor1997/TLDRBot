@@ -4,12 +4,15 @@ import nltk.data
 import io
 
 
-def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH, SENTENCE_LOCATION_FACTOR):
+def analyze(url, inputFile, titleFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTMENT_FACTOR, OPTIMAL_SENTENCE_LENGTH, SENTENCE_LOCATION_FACTOR, WORD_IN_TITLE_FACTOR):
     #preparation
     input = open(inputFile)
-    output = open(outputFile, 'w+')
-    wordFreq = open(freqFile)
     inputString = input.read()
+    title = open(titleFile).read()
+    print(title)
+    output = open(outputFile, 'w+')
+    output.write("url: " + url + '/n')
+    wordFreq = open(freqFile)
 
     freqBag = {}
     #populate dictionary with information from wordFreq.txt
@@ -29,6 +32,17 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
             else:
                 wordBag[word] = wordBag[word] + 1
 
+    #populate word list for title
+    titleBag = {}
+    for word in title.split():
+        word = re.sub("[^a-zA-Z]", "", word)
+        word = str.lower(word)
+        if word:
+            if not word in titleBag:
+                titleBag[word] = 1
+            else:
+                titleBag[word] = titleBag[word] + 1
+
     #for display
     sortedWordBag = reversed(sorted(wordBag.items(), key=lambda item: item[1]))
     for tuple in sortedWordBag:
@@ -46,6 +60,7 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
     #add values to sentence weight bag
     nthSentence = 0
     for sentence in tokenizedData:
+        print sentence + "\n"
         nthSentence = nthSentence + 1
         if len(sentence) > 0.00:
             sentenceTotal = 0.00
@@ -59,22 +74,28 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
                         sentenceTotal = sentenceTotal + (wordBag[word] / freqBag[word])
                     else:
                         sentenceTotal = sentenceTotal + (wordBag[word] / 10.00)
+                    if word in titleBag:
+                        if word in freqBag:
+                            sentenceTotal = sentenceTotal + (WORD_IN_TITLE_FACTOR/freqBag[word])
+                            print (word + " in title added " + str(WORD_IN_TITLE_FACTOR/freqBag[word]) + " points")
+                        else:
+                            sentenceTotal = sentenceTotal + (WORD_IN_TITLE_FACTOR / 10.00)
+                            print (word + " in title added " + str(WORD_IN_TITLE_FACTOR / 10.00) + " points")
             if not LENGTH_ADJUSTMENT_FACTOR is 0 and not wordCount is 0.00:
                 sentenceTotal = sentenceTotal - (abs(wordCount - OPTIMAL_SENTENCE_LENGTH) / LENGTH_ADJUSTMENT_FACTOR)
+                print('')
+                print("sentence length handicap is " + str(abs(wordCount - OPTIMAL_SENTENCE_LENGTH) / LENGTH_ADJUSTMENT_FACTOR))
             elif not wordCount is 0.00:
                 totalSentenceLength = totalSentenceLength + wordCount
             sentenceTotal = sentenceTotal - (nthSentence / numSentences * SENTENCE_LOCATION_FACTOR)
+            print('')
+            print ("sentence location handicap is " + str((nthSentence / numSentences * SENTENCE_LOCATION_FACTOR)))
             sentenceWeightBag[sentence] = sentenceTotal
-
+        print ("\n" + str(sentenceTotal))
+        print "\n---------\n"
     #find cutoff for sentence weight
     sortedSentenceWeightBag = sorted(sentenceWeightBag.items(), key=operator.itemgetter(1))
     cutoff = sortedSentenceWeightBag[-int(PERCENT_SUMMARIZED * numSentences / 100)][1]
-
-    #show weight of each sentence
-    for sentence in tokenizedData:
-        print sentence + "\n"
-        print sentenceWeightBag[sentence]
-        print "\n---------\n"
 
     #print summarized sentences
     sentencesInOutput = 0

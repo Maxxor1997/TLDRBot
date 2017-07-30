@@ -1,6 +1,6 @@
 NLTK Installation: http://www.nltk.org/install.html       
 NLTK Data: http://www.nltk.org/data.html
-Text Extractor: https://www.diffbot.com/products/automatic/article/
+Article Scraper: http://docs.aylien.com/
 Python version must be 2.7+
 
 To run from main, set the following variables:  
