@@ -25,9 +25,9 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
         word = str.lower(word)
         if word:
             if not word in wordBag:
-                wordBag[word] = 1.00
+                wordBag[word] = 1
             else:
-                wordBag[word] = wordBag[word] + 1.00
+                wordBag[word] = wordBag[word] + 1
 
     #for display
     sortedWordBag = reversed(sorted(wordBag.items(), key=lambda item: item[1]))
@@ -35,7 +35,9 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
         print tuple
 
     # segment into sentences
+    extra_abbreviations = ["F.B.I", "Mr. Sessions"]
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    tokenizer._params.abbrev_types.update(extra_abbreviations)
     tokenizedData = tokenizer.tokenize(inputString)
     numSentences = float(len(tokenizedData))
 
@@ -57,9 +59,10 @@ def analyze(inputFile, outputFile, freqFile, PERCENT_SUMMARIZED, LENGTH_ADJUSTME
                         sentenceTotal = sentenceTotal + (wordBag[word] / freqBag[word])
                     else:
                         sentenceTotal = sentenceTotal + (wordBag[word] / 10.00)
-            if not wordCount is 0.00:
-                totalSentenceLength = totalSentenceLength + wordCount
+            if not LENGTH_ADJUSTMENT_FACTOR is 0 and not wordCount is 0.00:
                 sentenceTotal = sentenceTotal - (abs(wordCount - OPTIMAL_SENTENCE_LENGTH) / LENGTH_ADJUSTMENT_FACTOR)
+            elif not wordCount is 0.00:
+                totalSentenceLength = totalSentenceLength + wordCount
             sentenceTotal = sentenceTotal - (nthSentence / numSentences * SENTENCE_LOCATION_FACTOR)
             sentenceWeightBag[sentence] = sentenceTotal
 

@@ -1,5 +1,6 @@
 NLTK Installation: http://www.nltk.org/install.html       
-NLTK Data: http://www.nltk.org/data.html   
+NLTK Data: http://www.nltk.org/data.html
+Text Extractor: https://www.diffbot.com/products/automatic/article/
 Python version must be 2.7+
 
 To run from main, set the following variables:  
@@ -12,3 +13,6 @@ To run from main, set the following variables:
 
 Debug:  
 Word frequencies and sentence scores are shown in the console.
+
+Known Errors:
+NLTK tokenizer fails to recognize "F.B.I." and "Mr. Sessions" as use cases where the period does not indicate sentence ends.

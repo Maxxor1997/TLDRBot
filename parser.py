@@ -18,6 +18,9 @@ def parse(inputFile, outputFile):
     inputString = inputString.replace("é", "e")
     inputString = inputString.replace(". . . .", " ...")
 
+    #to fix some commonly encountered issues with the nltk sentence segmenter
+    #inputString = inputString.replace("F.B.I.", "F.B.I")
+    #inputString = inputString.replace("Mr. Sessions", "Mr. Shoe")
 
     #remove empty spaces
     output.write(' '.join(inputString.split()))

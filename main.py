@@ -3,15 +3,15 @@ from analyzer import analyze
 
 #settings
 
-PERCENT_SUMMARIZED = 10
+PERCENT_SUMMARIZED = 15
 
-LENGTH_ADJUSTMENT_FACTOR = 3
+LENGTH_ADJUSTMENT_FACTOR = 0
 
 OPTIMAL_SENTENCE_LENGTH = 20
 
 SENTENCE_LOCATION_FACTOR = 10
 
-inputFile = "Sample Text Files/nytimes2.txt"
+inputFile = "Sample Text Files/nytimes1.txt"
 
 outputFile = "summarized.txt"
 
