@@ -11,7 +11,8 @@ def analyze(url, inputFile, titleFile, outputFile, freqFile, PERCENT_SUMMARIZED,
     title = open(titleFile).read()
     print(title)
     output = open(outputFile, 'w+')
-    output.write("url: " + url + '/n')
+    output.write("url: " + url + '\n')
+    output.write("\n---------\n")
     wordFreq = open(freqFile)
 
     freqBag = {}
@@ -109,4 +110,4 @@ def analyze(url, inputFile, titleFile, outputFile, freqFile, PERCENT_SUMMARIZED,
     output.write("\n")
     output.write("\n")
     output.write("showing " + str(int(sentencesInOutput)) + " out of " + str(numSentences) + " sentences" + " (" + str(sentencesInOutput/numSentences * 100.00) + "%)\n")
-    output.write("average sentence length is " + str(totalSentenceLength/numSentences) + " words")
+    #output.write("average sentence length is " + str(totalSentenceLength/numSentences) + " words")

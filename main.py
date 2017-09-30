@@ -7,7 +7,7 @@ import json
 
 client = textapi.Client("963c482b", "48dfe5e0273d1f852113c5479e09c72b")
 
-url = "http://www.dailyprincetonian.com/article/2017/06/theres-trouble-a-bruin"
+url = "https://www.nytimes.com/2017/09/29/us/politics/tom-price-trump-hhs.html"
 
 outputFile = "summarized.txt"
 
@@ -16,7 +16,7 @@ freqFile = "wordFreq.txt"
 
 #settings
 
-PERCENT_SUMMARIZED = 30
+PERCENT_SUMMARIZED = 15
 
 LENGTH_ADJUSTMENT_FACTOR = 10
 
