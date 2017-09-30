@@ -3,21 +3,25 @@
 
 import re
 
-def parse(inputFile, outputFile):
+def parse(inputString, outputFile):
 
-    input = open(inputFile, "r")
     output = open(outputFile, "w")
 
-    inputString = input.read()
-
     #replace common non-ascii characters with ascii ones
-    inputString = inputString.replace("”", "\"")
-    inputString = inputString.replace("“", "\"")
+    inputString = inputString.replace("&#8220;", "\"")
+    inputString = inputString.replace("&#8221;", "\"")
+    inputString = inputString.replace("&#8217;", "\'")
+    inputString = inputString.replace("&#8216;", "\'")
+    inputString = inputString.replace("&#8212;", "-")
+    inputString = inputString.replace("&#160;", " ")
     inputString = inputString.replace("‘", "\'")
     inputString = inputString.replace("’", "\'")
     inputString = inputString.replace("é", "e")
     inputString = inputString.replace(". . . .", " ...")
 
+    #to fix some commonly encountered issues with the nltk sentence segmenter
+    #inputString = inputString.replace("F.B.I.", "F.B.I")
+    #inputString = inputString.replace("Mr. Sessions", "Mr. Shoe")
 
     #remove empty spaces
     output.write(' '.join(inputString.split()))
