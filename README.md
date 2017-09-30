@@ -13,6 +13,7 @@
 * **OPTIMAL_SENTENCE_LENGTH** is the length of the ideal summarized sentence. Studies have shown that the best readability occurs when the sentence is 15-20 words long.
 * **LENGTH_ADJUSTMENT_FACTOR** is how much we want the lengths of the summarized sentences to match our optimal length. Lower means length is more important.
 * **SENTENCE_LOCATION_FACTOR** is how much we want to favor sentences that occur earlier in the article. News articles often present the most important information first. Higher means location is more important.
+* **WORD_IN_TITLE_FACTOR** is how much we favor a word if it appears in the title. Higher value means we favor it more.
 
 ## Run
 Inside IDE:
