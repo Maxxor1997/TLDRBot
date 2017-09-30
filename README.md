@@ -2,7 +2,7 @@
 * [Python](https://www.python.org/download/releases/2.7/) - Python 2.7
 * [NLTK](http://www.nltk.org/install.html) - Natural Language Processing Library
 * [NLTK Data](http://www.nltk.org/data.html) - Subset of NLTK, used to split text into sentences
-* [Aylien API](https://aylien.com/) - Natural Language Processing API, used to scrape article text and title from url. API key in Main.py
+* [Aylien API](https://aylien.com/) - Natural Language Processing API, used to scrape article text and title from url. API key in main.py
 
 ## Set Input/Output in main.py
 * **url** is the url of the article to be summarized
